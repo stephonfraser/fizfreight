@@ -34,19 +34,19 @@ export default function Home() {
         </div>
         <div className="rightSide p-5 w-3/3">
           <div className="dashboard-tiles flex flex-row gap-3 ">
-              <Card className="hover:cursor-pointer">
+              <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
                   <CardHeader>
                       Add New Customer
                   </CardHeader>
               </Card>
               
-              <Card className="hover:cursor-pointer">
+              <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
                   <CardHeader>
                       Add New User
                   </CardHeader>
               </Card>
               
-              <Card className="hover:cursor-pointer">
+              <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
                   <CardHeader>
                       Add New Package
                   </CardHeader>
@@ -54,7 +54,7 @@ export default function Home() {
             </div>
             <div className="dashboard-tiles flex flex-row gap-3 mt-5">
               <Link href={"/workspace/history"}>
-                <Card className="hover:cursor-pointer">
+                <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
                     <CardHeader>
                         Shipping History
                     </CardHeader>
@@ -62,15 +62,15 @@ export default function Home() {
               </Link>
               
               <Link href={"/workspace/pending"}>
-                <Card className="hover:cursor-pointer">
+                <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
                     <CardHeader>
                         Pending Shipments
                     </CardHeader>
                 </Card>
               </Link>
               
-              <Link href={"/workspace/pending"}>
-                <Card className="hover:cursor-pointer">
+              <Link href={"/workspace/customers"}>
+                <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
                     <CardHeader>
                         View Customers
                     </CardHeader>
