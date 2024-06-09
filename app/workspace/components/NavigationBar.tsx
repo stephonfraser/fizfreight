@@ -39,13 +39,7 @@ const NavigationBar = () => {
               Profile
             </DropdownMenuItem>
             <DropdownMenuItem>
-              Billing
-            </DropdownMenuItem>
-            <DropdownMenuItem>
               Settings
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              Keyboard shortcuts
             </DropdownMenuItem>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
@@ -64,9 +58,7 @@ const NavigationBar = () => {
             </DropdownMenuSub>
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>GitHub</DropdownMenuItem>
           <DropdownMenuItem>Support</DropdownMenuItem>
-          <DropdownMenuItem disabled>API</DropdownMenuItem>
           <DropdownMenuSeparator />
           <Link href={"/"}>
             <DropdownMenuItem>

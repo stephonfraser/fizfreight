@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button"
 import { redirect } from "next/navigation";
 import { sql } from "@vercel/postgres";
 import Link from "next/link";
+import { LuUserPlus, LuUserCog, LuPackagePlus, LuPackageSearch, LuPackageOpen } from "react-icons/lu";
+
 import {
   Card,
   CardContent,
@@ -35,27 +37,31 @@ export default function Home() {
         <div className="rightSide p-5 w-3/3">
           <div className="dashboard-tiles flex flex-row gap-3 ">
               <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
-                  <CardHeader>
-                      Add New Customer
+                  <CardHeader className="flex flex-row gap-4 items-center">
+                        <LuUserPlus size={24}/>
+                        Add New Customer
                   </CardHeader>
               </Card>
               
               <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
-                  <CardHeader>
-                      Add New User
+                  <CardHeader className="flex flex-row gap-4 items-center">
+                        <LuUserPlus size={24}/>
+                        Add New User
                   </CardHeader>
               </Card>
               
               <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
-                  <CardHeader>
-                      Add New Package
+                  <CardHeader className="flex flex-row gap-4 items-center">
+                        <LuPackagePlus size={24} />
+                        Add New Package
                   </CardHeader>
               </Card>
             </div>
             <div className="dashboard-tiles flex flex-row gap-3 mt-5">
               <Link href={"/workspace/history"}>
                 <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
-                    <CardHeader>
+                    <CardHeader className="flex flex-row gap-4 items-center">
+                        <LuPackageSearch size={24} />
                         Shipping History
                     </CardHeader>
                 </Card>
@@ -63,7 +69,8 @@ export default function Home() {
               
               <Link href={"/workspace/pending"}>
                 <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
-                    <CardHeader>
+                    <CardHeader className="flex flex-row gap-4 items-center">
+                        <LuPackageOpen size={24} />
                         Pending Shipments
                     </CardHeader>
                 </Card>
@@ -71,7 +78,8 @@ export default function Home() {
               
               <Link href={"/workspace/customers"}>
                 <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
-                    <CardHeader>
+                    <CardHeader className="flex flex-row gap-4 items-center">
+                        <LuUserCog size={24} />
                         View Customers
                     </CardHeader>
                 </Card>
