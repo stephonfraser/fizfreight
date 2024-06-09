@@ -17,30 +17,27 @@ export async function HistoryTable() {
   return (
     <div className="rounded-md border">
       <Table>
-        <TableCaption>Shipping History</TableCaption>
+        <TableCaption>Pending Shipments</TableCaption>
         <TableHeader>
             <TableRow>
-                <TableHead className="w-[100px]">ID</TableHead>
-                <TableHead>Customer ID</TableHead>
-                <TableHead>Warehouse ID</TableHead>
+                <TableHead className="w-[200px]">Delivery Date</TableHead>
                 <TableHead>Tracking Number</TableHead>
-                <TableHead>Description</TableHead>
                 <TableHead>Weight</TableHead>
+                <TableHead>Description</TableHead>
                 <TableHead>Vendor</TableHead>
                 {/* <TableHead>Delivery Date</TableHead> */}
-                {/* <TableHead>Shipped Date</TableHead> */}
+                <TableHead>Shipment Date</TableHead>
             </TableRow>
         </TableHeader>
         <TableBody>
             {rows.map((row) => (
                 <TableRow key={row.id}>
-                    <TableCell className="font-medium">{row.id}</TableCell>
-                    <TableCell>{row.customer_id}</TableCell>
-                    <TableCell>{row.warehouse_id}</TableCell>
+                    <TableCell>{row.delivery_date.toLocaleString()}</TableCell>
                     <TableCell>{row.tracking_number}</TableCell>
-                    <TableCell>{row.description}</TableCell>
                     <TableCell>{row.weight}</TableCell>
+                    <TableCell>{row.description}</TableCell>
                     <TableCell>{row.vendor}</TableCell>
+                    <TableCell>{row.shipped_date.toLocaleString()}</TableCell>
                     {/* <TableCell>{row.delivery_date}</TableCell> */}
                     {/* <TableCell>{row.shipped_date}</TableCell> */}
                 </TableRow>
