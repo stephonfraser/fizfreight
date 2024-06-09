@@ -14,6 +14,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+
 
 
 
@@ -36,26 +45,62 @@ export default function Home() {
         </div>
         <div className="rightSide p-5 w-3/3">
           <div className="dashboard-tiles flex flex-row gap-3 ">
-              <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
-                  <CardHeader className="flex flex-row gap-4 items-center">
-                        <LuUserPlus size={24}/>
-                        Add New Customer
-                  </CardHeader>
-              </Card>
+              <Dialog>
+                <DialogTrigger>
+                  <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
+                      <CardHeader className="flex flex-row gap-4 items-center">
+                            <LuUserPlus size={24}/>
+                            Add New Customer
+                      </CardHeader>
+                  </Card>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Add New Customer</DialogTitle>
+                    <DialogDescription>
+                      Form will be placed here. Logic already written.
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
+
+              <Dialog>
+                <DialogTrigger>
+                  <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
+                    <CardHeader className="flex flex-row gap-4 items-center">
+                          <LuUserPlus size={24}/>
+                          Add New User
+                    </CardHeader>
+                  </Card>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Add New User</DialogTitle>
+                    <DialogDescription>
+                      Form will be placed here. Logic already written.
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
               
-              <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
-                  <CardHeader className="flex flex-row gap-4 items-center">
-                        <LuUserPlus size={24}/>
-                        Add New User
-                  </CardHeader>
-              </Card>
-              
-              <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
-                  <CardHeader className="flex flex-row gap-4 items-center">
-                        <LuPackagePlus size={24} />
-                        Add New Package
-                  </CardHeader>
-              </Card>
+              <Dialog>
+                <DialogTrigger>
+                  <Card className="hover:cursor-pointer hover:shadow-md hover:duration-100">
+                    <CardHeader className="flex flex-row gap-4 items-center">
+                          <LuPackagePlus size={24} />
+                          Add New Package
+                    </CardHeader>
+                  </Card>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Add New Package</DialogTitle>
+                    <DialogDescription>
+                      Form will be placed here. Logic already written.
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
             </div>
             <div className="dashboard-tiles flex flex-row gap-3 mt-5">
               <Link href={"/workspace/history"}>
