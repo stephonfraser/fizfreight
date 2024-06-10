@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { sql } from "@vercel/postgres";
 import Link from "next/link";
 import { LuUserPlus, LuUserCog, LuPackagePlus, LuPackageSearch, LuPackageOpen } from "react-icons/lu";
+import { CustomerForm } from "./customerForm";
 
 import {
   Card,
@@ -58,7 +59,7 @@ export default function Home() {
                   <DialogHeader>
                     <DialogTitle>Add New Customer</DialogTitle>
                     <DialogDescription>
-                      Form will be placed here. Logic already written.
+                      <CustomerForm></CustomerForm>
                     </DialogDescription>
                   </DialogHeader>
                 </DialogContent>
