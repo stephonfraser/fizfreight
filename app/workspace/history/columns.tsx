@@ -12,26 +12,24 @@ export type Payment = {
 }
 
 export type History = {
-  id: string
-  customer_id: number
-  warehouse_id: number
-  tracking_number: number
-  description: string
-  weight: number
-  vendor: string
-  delivery_date: string
-  shipped_date: string
+  shipped_date: any
+  // customer: string
+  warehouse_id: any
+  tracking_number: any
+  weight: any
+  description: any
+  vendor: any
 }
 
 export const columns: ColumnDef<History>[] = [
   {
-    accessorKey: "id",
-    header: "ID",
+    accessorKey: "shipped_date",
+    header: "Shipment Date",
   },
-  {
-    accessorKey: "customer_id",
-    header: "Customer ID",
-  },
+  // {
+  //   accessorKey: "customer",
+  //   header: "Customer Name",
+  // },
   {
     accessorKey: "warehouse_id",
     header: "Warehouse ID",
@@ -41,26 +39,17 @@ export const columns: ColumnDef<History>[] = [
     header: "Tracking Number",
   },
   {
-    accessorKey: "description",
-    header: "Description",
-  },
-  {
     accessorKey: "weight",
     header: "Weight",
   },
   {
+    accessorKey: "description",
+    header: "Description",
+  },
+  {
     accessorKey: "vendor",
     header: "Vendor",
-  },
-  {
-    accessorKey: "delivery_date",
-    header: "Delivery Date",
-  },
-  {
-    accessorKey: "shipping_date",
-    header: "Shipping Date",
   }
-  
 
 ]
 

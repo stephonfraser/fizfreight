@@ -1,7 +1,3 @@
-import Image from "next/image";
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { redirect } from "next/navigation";
 import { sql } from "@vercel/postgres";
 import Link from "next/link";
 import { LuArrowBigLeft } from "react-icons/lu";
@@ -13,12 +9,46 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
+import { History, columns } from "./columns"
+import { DataTable } from "./data-table"
 
 import { HistoryTable } from "./components/HistoryTable";
+
+async function getData(): Promise<History[]> {
+  const res = await fetch('http://localhost:3000/api/select-shipment-history')
+  console.log("Got response: ", res);
+  const data = await res.json();
+  console.log("Data is now: ", data);
+  const returnedData: any[] = []
+  data.data.map((singleData: any) => {
+    returnedData.push(singleData);
+  }) 
+
+  console.log("Returned Data is now: ", returnedData)
+
+   
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+
+  const returned: History[] = returnedData.map((result: { shipped_date: any; warehouse_id: any; tracking_number: any; weight: any; description: any; vendor: any; }) => ({
+    shipped_date: result.shipped_date.toLocaleString(),
+    warehouse_id: result.warehouse_id,
+    tracking_number: result.tracking_number,
+    weight: result.weight,
+    description: result.description,
+    vendor: result.vendor
+  }))
+ 
+  return returned
+}
 
 
 
 export default async function Home() {
+  const data = await getData()
+  console.log("Pulled Data: ", data);
 
   return (
     <main className="flex w-full">
@@ -43,8 +73,8 @@ export default async function Home() {
                     Shipping History
                 </div>
             </div>
-            
-            <HistoryTable />
+            <DataTable columns={columns} data={data} />
+            {/* <HistoryTable /> */}
         </div>
 
     </main>
