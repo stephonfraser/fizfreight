@@ -15,7 +15,7 @@ import { DataTable } from "./data-table"
 import { HistoryTable } from "./components/HistoryTable";
 
 async function getData(): Promise<History[]> {
-  const res = await fetch('http://localhost:3000/api/select-shipment-history')
+  const res = await fetch('https://fizfreight.vercel.app/api/select-shipment-history')
   console.log("Got response: ", res);
   const data = await res.json();
   console.log("Data is now: ", data);
