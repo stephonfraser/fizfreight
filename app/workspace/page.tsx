@@ -6,6 +6,7 @@ import { sql } from "@vercel/postgres";
 import Link from "next/link";
 import { LuUserPlus, LuUserCog, LuPackagePlus, LuPackageSearch, LuPackageOpen } from "react-icons/lu";
 import { CustomerForm } from "./customerForm";
+import { createCustomer } from "../actions";
 
 import {
   Card,
@@ -59,7 +60,7 @@ export default function Home() {
                   <DialogHeader>
                     <DialogTitle>Add New Customer</DialogTitle>
                     <DialogDescription>
-                      <CustomerForm></CustomerForm>
+                      <CustomerForm createCustomer={createCustomer}></CustomerForm>
                     </DialogDescription>
                   </DialogHeader>
                 </DialogContent>

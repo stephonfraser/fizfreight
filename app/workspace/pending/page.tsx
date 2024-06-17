@@ -1,18 +1,6 @@
-import Image from "next/image";
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { redirect } from "next/navigation";
-import { sql } from "@vercel/postgres";
+
 import Link from "next/link";
 import { LuArrowBigLeft } from "react-icons/lu";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -21,12 +9,43 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { HistoryTable } from "./components/HistoryTable";
+import { History, columns } from "./columns"
+import { DataTable } from "./data-table"
 
+async function getData(): Promise<History[]> {
+  const res = await fetch('https://fizfreight.vercel.app/api/select-pending-shipment')
+  console.log("Got response: ", res);
+  const data = await res.json();
+  console.log("Data is now: ", data);
+  const returnedData: any[] = []
+  data.data.map((singleData: any) => {
+    returnedData.push(singleData);
+  }) 
+
+  console.log("Returned Data is now: ", returnedData)
+
+   
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+
+  const returned: History[] = returnedData.map((result: { shipped_date: any; warehouse_id: any; tracking_number: any; weight: any; description: any; vendor: any; }) => ({
+    shipped_date: result.shipped_date.toLocaleString(),
+    warehouse_id: result.warehouse_id,
+    tracking_number: result.tracking_number,
+    weight: result.weight,
+    description: result.description,
+    vendor: result.vendor
+  }))
+ 
+  return returned
+}
 
 
 export default async function Home() {
-
+  const data = await getData()
+  console.log("Pulled Data: ", data);
   return (
     <main className="flex w-full">
         <div className="p-5 w-full">
@@ -49,8 +68,8 @@ export default async function Home() {
                     Pending Shipments
                 </div>
             </div>
-            
-            <HistoryTable />
+            <DataTable columns={columns} data={data} />
+            {/* <HistoryTable /> */}
         </div>
 
     </main>

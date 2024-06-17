@@ -14,7 +14,8 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
- 
+import { redirect } from 'next/navigation'
+
 const formSchema = z.object({
   firstName: z.string().min(2, {
     message: "Username must be at least 2 characters.",
@@ -34,7 +35,7 @@ const formSchema = z.object({
 
 })
 
-export function CustomerForm() {
+export function CustomerForm({createCustomer}: any) {
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,10 +49,20 @@ export function CustomerForm() {
   })
  
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values)
+    const { firstName, lastName, emailAddress, phoneNumber, physicalAddress} = values;
+    const submissionData = {
+      firstName,
+      lastName,
+      emailAddress,
+      phoneNumber,
+      physicalAddress
+    }
+    await createCustomer(submissionData);
+    
   }
 
   return (
