@@ -24,6 +24,7 @@ import {
 import { Customer, columns } from "./columns"
 import { DataTable } from "./data-table"
  import { headers } from "next/headers";
+ import { getCustomers } from "@/app/actions";
 
 export const runtime = 'edge';
 
@@ -37,9 +38,11 @@ async function getData(link: any): Promise<Customer[]> {
   const res = await fetch(`${starter}${link}/api/select-customers`, { cache: 'no-store'})
   // console.log("Got response: ", res);
   const data = await res.json();
+  const newRes = await getCustomers();
+  const newData = await newRes.json();
   // console.log("Data is now: ", data);
   const returnedData: any[] = []
-  data.data.map((singleData: any) => {
+  newData.data.map((singleData: any) => {
     returnedData.push(singleData);
   }) 
 

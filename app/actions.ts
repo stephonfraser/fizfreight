@@ -2,6 +2,7 @@
 import { sql } from '@vercel/postgres';
 import { redirect } from 'next/navigation'
 import { revalidateTag } from 'next/cache'
+import { NextResponse } from 'next/server';
 
 
 export async function createCustomer(values: any) {
@@ -21,6 +22,17 @@ export async function createCustomer(values: any) {
   const customers = await sql`SELECT * FROM customers;`;
   console.log(customers)
   redirect('/workspace')
+}
+
+export async function getCustomers() {
+  try {
+    const result =
+      await sql`SELECT * FROM customers;`;
+    const data = result.rows;
+    return NextResponse.json({ data }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+  }
 }
 
 export async function createPackage(values: any) {
