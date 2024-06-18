@@ -1,18 +1,9 @@
-import Image from "next/image";
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { redirect } from "next/navigation";
-import { sql } from "@vercel/postgres";
 import Link from "next/link";
 import { LuArrowBigLeft } from "react-icons/lu";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Customer, columns } from "./columns"
+import { DataTable } from "./data-table"
+import { headers } from "next/headers";
+import { getCustomers } from "@/app/actions";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -21,10 +12,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { Customer, columns } from "./columns"
-import { DataTable } from "./data-table"
- import { headers } from "next/headers";
- import { getCustomers } from "@/app/actions";
+
 
 export const runtime = 'edge';
 

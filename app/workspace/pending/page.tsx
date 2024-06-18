@@ -1,6 +1,10 @@
 
 import Link from "next/link";
 import { LuArrowBigLeft } from "react-icons/lu";
+import { History, columns } from "./columns"
+import { DataTable } from "./data-table"
+import { headers } from "next/headers";
+import { getShippingHistory } from "@/app/actions";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -9,9 +13,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { History, columns } from "./columns"
-import { DataTable } from "./data-table"
-import { headers } from "next/headers";
+
 
 
 async function getData( link: any ): Promise<History[]> {
@@ -22,15 +24,17 @@ async function getData( link: any ): Promise<History[]> {
     starter = "https://"
   }
   const res = await fetch(`${starter}${link}/api/select-pending-shipment`,  { next: { tags: ['packages'] }, cache: 'no-store'})
-  console.log("Got response: ", res);
+  // console.log("Got response: ", res);
   const data = await res.json();
-  console.log("Data is now: ", data);
+  const newRes = await getShippingHistory();
+  const newData = await newRes.json();
+  // console.log("Data is now: ", data);
   const returnedData: any[] = []
-  data.data.map((singleData: any) => {
+  newData.data.map((singleData: any) => {
     returnedData.push(singleData);
   }) 
 
-  console.log("Returned Data is now: ", returnedData)
+  // console.log("Returned Data is now: ", returnedData)
 
    
   if (!res.ok) {

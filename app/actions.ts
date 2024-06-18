@@ -35,6 +35,17 @@ export async function getCustomers() {
   }
 }
 
+export async function getShippingHistory() {
+  try {
+    const result =
+      await sql`SELECT * FROM packages;`;
+    const data = result.rows;
+    return NextResponse.json({ data }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+  }
+}
+
 export async function createPackage(values: any) {
    const { shipmentDate, deliveryDate, warehouseId, customer, trackingNumber, weight, description, vendor} = values;
    
