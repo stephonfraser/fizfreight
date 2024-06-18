@@ -25,6 +25,7 @@ import { Customer, columns } from "./columns"
 import { DataTable } from "./data-table"
  import { headers } from "next/headers";
 
+export const runtime = 'edge';
 
 async function getData(link: any): Promise<Customer[]> {
   let starter = "";
