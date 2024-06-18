@@ -1,7 +1,7 @@
 'use server'
 import { sql } from '@vercel/postgres';
 import { redirect } from 'next/navigation'
-import { revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { NextResponse } from 'next/server';
 
 
@@ -14,14 +14,12 @@ export async function createCustomer(values: any) {
    try {
     if (!firstName || !lastName || !phoneNumber || !emailAddress || !signUpDate || !physicalAddress || !accountNumber) throw new Error('Pet and owner names required');
     await sql`INSERT INTO customers (first_name, last_name, phone_number, email_address, signup_date, physical_address, account_number) VALUES (${firstName}, ${lastName}, ${phoneNumber}, ${emailAddress}, ${signUpDate}, ${physicalAddress}, ${accountNumber});`;
-    revalidateTag('customers')
+
   } catch (error) {
     console.error(error)
   }
  
   const customers = await sql`SELECT * FROM customers;`;
-  console.log(customers)
-  redirect('/workspace')
 }
 
 export async function getCustomers() {
@@ -58,8 +56,6 @@ export async function createPackage(values: any) {
   }
  
   const packages = await sql`SELECT * FROM packages;`;
-  console.log(packages)
-  redirect('/workspace')
 }
 
 async function getLastId() {

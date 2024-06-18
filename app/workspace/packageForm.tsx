@@ -1,21 +1,35 @@
 "use client"
  
-import { z } from "zod"
+import { any, z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Button } from "@/components/ui/button"
+import { AwaitedReactNode, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, SetStateAction, useState } from "react"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { redirect } from 'next/navigation'
 import { useToast } from "@/components/ui/use-toast"
+import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { cn } from "@/lib/utils"
 
 const formSchema = z.object({
   shipmentDate: z.string(),
@@ -23,7 +37,7 @@ const formSchema = z.object({
   warehouseId: z.string().min(1, {
     message: "Warehouse ID must be at least 1 characters.",
   }),
-  customer: z.string(),
+  customer: z.number(),
   trackingNumber: z.string(),
   weight: z.string(),
   description: z.string().min(2, {
@@ -33,26 +47,29 @@ const formSchema = z.object({
 
 })
 
-export function PackageForm({createPackage}: any) {
+export function PackageForm({createPackage, customers}: any) {
+
+
   // 1. Define your form.
   const { toast } = useToast()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       warehouseId: "",
-      customer: "",
+      customer: 0,
       trackingNumber: "",
       weight: "",
       description: "",
       vendor: "",
     },
   })
+
+  const { reset } = form;
  
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values)
     const { shipmentDate, deliveryDate, warehouseId, customer, trackingNumber, weight, description, vendor} = values;
     const submissionData = {
       shipmentDate, 
@@ -68,9 +85,11 @@ export function PackageForm({createPackage}: any) {
     toast({
       title: "Package Created!",
     })
+    reset();
   }
 
   return (
+    
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <div className="row flex flex-row gap-3 w-full mt-5">
@@ -121,9 +140,59 @@ export function PackageForm({createPackage}: any) {
             render={({ field }) => (
               <FormItem className="w-1/2">
                 <FormLabel>Customer</FormLabel>
-                <FormControl>
-                  <Input placeholder="John Doe" {...field} />
-                </FormControl>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        className={cn(
+                          "w-[200px] justify-between",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value
+                          ? customers.find(
+                              (customer: { id: any }) => customer.id === field.value
+                            )?.full_name
+                          : "Select Customer"}
+                        <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[200px] p-0">
+                    <Command>
+                      <CommandInput
+                        placeholder="Search customers..."
+                        className="h-9"
+                      />
+                      <CommandEmpty>No customer found.</CommandEmpty>
+                      <CommandGroup>
+                        <CommandList>
+                          {customers.map((customer: { id: any; full_name: any}) => (
+                            <CommandItem
+                              value={customer.id}
+                              key={customer.id}
+                              onSelect={() => {
+                                form.setValue("customer", customer.id)
+                              }}
+                            >
+                              {customer.full_name}
+                              <CheckIcon
+                                className={cn(
+                                  "ml-auto h-4 w-4",
+                                  customer.id === field.value
+                                    ? "opacity-100"
+                                    : "opacity-0"
+                                )}
+                              />
+                            </CommandItem>
+                          ))}
+                        </CommandList>
+                      </CommandGroup>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
                 <FormMessage />
               </FormItem>
             )}

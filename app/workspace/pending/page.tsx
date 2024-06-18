@@ -4,7 +4,7 @@ import { LuArrowBigLeft } from "react-icons/lu";
 import { History, columns } from "./columns"
 import { DataTable } from "./data-table"
 import { headers } from "next/headers";
-import { getShippingHistory } from "@/app/actions";
+import { getShippingHistory, getCustomers } from "@/app/actions";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -17,24 +17,20 @@ import {
 
 
 async function getData( link: any ): Promise<History[]> {
-  let starter = "";
-  if (link == "localhost:3000") {
-    starter = "http://"
-  } else {
-    starter = "https://"
-  }
-  const res = await fetch(`${starter}${link}/api/select-pending-shipment`,  { next: { tags: ['packages'] }, cache: 'no-store'})
-  // console.log("Got response: ", res);
+  const res = await getShippingHistory();
   const data = await res.json();
-  const newRes = await getShippingHistory();
-  const newData = await newRes.json();
-  // console.log("Data is now: ", data);
   const returnedData: any[] = []
-  newData.data.map((singleData: any) => {
+  data.data.map((singleData: any) => {
     returnedData.push(singleData);
   }) 
 
-  // console.log("Returned Data is now: ", returnedData)
+  const cusRes = await getCustomers();
+  const cusData = await cusRes.json();
+  const returnedCustomer: any[] = []
+  cusData.data.map((singleData: any) => {
+    returnedCustomer.push(singleData);
+  })
+
 
    
   if (!res.ok) {
@@ -42,14 +38,21 @@ async function getData( link: any ): Promise<History[]> {
     throw new Error('Failed to fetch data')
   }
 
-  const returned: History[] = returnedData.map((result: { shipped_date: any; warehouse_id: any; tracking_number: any; weight: any; description: any; vendor: any; }) => ({
-    shipped_date: result.shipped_date.toLocaleString(),
+  const returned: History[] = returnedData.map((result: { customer_id: any, shipped_date: any; warehouse_id: any; tracking_number: any; weight: any; description: any; vendor: any; }) => {
+    const customerData = returnedCustomer.find((customer) => customer.id == result.customer_id)
+    const customerName = customerData.first_name + " " + customerData.last_name;
+    const shipped = new Date(result.shipped_date);
+    const formattedShipped = shipped.toLocaleDateString();
+    return (
+    {
+    customer: customerName,
+    shipped_date: formattedShipped,
     warehouse_id: result.warehouse_id,
     tracking_number: result.tracking_number,
     weight: result.weight,
     description: result.description,
     vendor: result.vendor
-  }))
+  })})
  
   return returned
 }
@@ -59,7 +62,6 @@ export default async function Home() {
   const headersList = headers();
   const domain = headersList.get('host') || "";
   const data = await getData(domain)
-  console.log("Pulled Data: ", data);
   return (
     <main className="flex w-full">
         <div className="p-5 w-full">

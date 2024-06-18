@@ -17,20 +17,11 @@ import {
 export const runtime = 'edge';
 
 async function getData(link: any): Promise<Customer[]> {
-  let starter = "";
-  if (link == "localhost:3000") {
-    starter = "http://"
-  } else {
-    starter = "https://"
-  }
-  const res = await fetch(`${starter}${link}/api/select-customers`, { cache: 'no-store'})
-  // console.log("Got response: ", res);
+  const res = await getCustomers();
   const data = await res.json();
-  const newRes = await getCustomers();
-  const newData = await newRes.json();
   // console.log("Data is now: ", data);
   const returnedData: any[] = []
-  newData.data.map((singleData: any) => {
+  data.data.map((singleData: any) => {
     returnedData.push(singleData);
   }) 
 
@@ -42,8 +33,11 @@ async function getData(link: any): Promise<Customer[]> {
     throw new Error('Failed to fetch data')
   }
 
-  const returned: Customer[] = returnedData.map((result: { signup_date: any; account_number: any; first_name: any; last_name: any; phone_number: any; email_address: any; physical_address: any; total_weight_shipped: any; package_count: any; id: any;}) => ({
-    signup_date: result.signup_date.toLocaleString(),
+  const returned: Customer[] = returnedData.map((result: { signup_date: any; account_number: any; first_name: any; last_name: any; phone_number: any; email_address: any; physical_address: any; total_weight_shipped: any; package_count: any; id: any;}) => {
+    const signup = new Date(result.signup_date);
+    const formattedSignup = signup.toLocaleDateString();
+    return ({
+    signup_date: formattedSignup,
     account_number: result.account_number,
     first_name: result.first_name,
     last_name: result.last_name,
@@ -53,7 +47,7 @@ async function getData(link: any): Promise<Customer[]> {
     total_weight_shipped: result.total_weight_shipped,
     package_count: result.package_count,
     id: result.id,
-  }))
+  })})
  
   return returned
 }

@@ -49,14 +49,11 @@ export function CustomerForm({createCustomer}: any) {
       physicalAddress: "",
     },
   })
+
+  const { reset } = form;
  
-  // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
    
-
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values)
     const { firstName, lastName, emailAddress, phoneNumber, physicalAddress} = values;
     const submissionData = {
       firstName,
@@ -65,12 +62,11 @@ export function CustomerForm({createCustomer}: any) {
       phoneNumber,
       physicalAddress
     }
-    const currentDate = new Date().toISOString;
     await createCustomer(submissionData);
     toast({
       title: "Customer Created!",
     })
-    revalidatePath("/workspace/customers")
+    reset();
   }
 
   return (

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { LuUserPlus, LuUserCog, LuPackagePlus, LuPackageSearch, LuPackageOpen } from "react-icons/lu";
 import { CustomerForm } from "./customerForm";
 import { PackageForm } from "./packageForm";
-import { createCustomer, createPackage } from "../actions";
+import { createCustomer, createPackage, getCustomers } from "../actions";
 
 import {
   Card,
@@ -27,11 +27,43 @@ import {
 } from "@/components/ui/dialog"
 
 
+async function getData() {
+  const res = await getCustomers();
+  const data = await res.json();
+  const returnedData: any[] = []
+  data.data.map((singleData: any) => {
+    returnedData.push(singleData);
+  }) 
 
 
-export default function Home() {
+   
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+
+  const returned = returnedData.map((result: { signup_date: any; account_number: any; first_name: any; last_name: any; phone_number: any; email_address: any; physical_address: any; total_weight_shipped: any; package_count: any; id: any;}) => ({
+    signup_date: result.signup_date.toLocaleString(),
+    account_number: result.account_number,
+    first_name: result.first_name,
+    last_name: result.last_name,
+    full_name: result.first_name + " " + result.last_name,
+    phone_number: result.phone_number,
+    email_address: result.email_address,
+    physical_address: result.physical_address,
+    total_weight_shipped: result.total_weight_shipped,
+    package_count: result.package_count,
+    id: result.id,
+  }))
+ 
+  return returned
+}
+
+export default async function Home() {
 
   const userType = "admin";
+
+  const customerData = await getData();
 
   return (
     <main className="flex">
@@ -99,7 +131,7 @@ export default function Home() {
                   <DialogHeader>
                     <DialogTitle>Add New Package</DialogTitle>
                     <DialogDescription>
-                      <PackageForm createPackage={createPackage}></PackageForm>
+                      <PackageForm createPackage={createPackage} customers={customerData}></PackageForm>
                     </DialogDescription>
                   </DialogHeader>
                 </DialogContent>

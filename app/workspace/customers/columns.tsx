@@ -20,6 +20,10 @@ export type Customer = {
 
 export const columns: ColumnDef<Customer>[] = [
   {
+    accessorKey: "account_number",
+    header: "Account Number",
+  },
+  {
     accessorKey: "first_name",
     header: "First Name",
   },
@@ -50,10 +54,6 @@ export const columns: ColumnDef<Customer>[] = [
   {
     accessorKey: "package_count",
     header: "Package Count",
-  },
-  {
-    accessorKey: "account_number",
-    header: "Account Number",
   },
   {
     accessorKey: "id",
