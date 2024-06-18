@@ -25,10 +25,6 @@ import { Customer, columns } from "./columns"
 import { DataTable } from "./data-table"
  import { headers } from "next/headers";
 
- const heads = headers()
-
- const pathname = heads.get('next-url')
-
 
 async function getData(link: any): Promise<Customer[]> {
   let starter = "";
