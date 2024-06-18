@@ -21,7 +21,7 @@ async function getData( link: any ): Promise<History[]> {
   } else {
     starter = "https://"
   }
-  const res = await fetch(`${starter}${link}/api/select-pending-shipment`)
+  const res = await fetch(`${starter}${link}/api/select-pending-shipment`,  { next: { revalidate: 5 }, cache: 'no-store'})
   console.log("Got response: ", res);
   const data = await res.json();
   console.log("Data is now: ", data);
