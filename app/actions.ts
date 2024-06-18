@@ -1,6 +1,8 @@
 'use server'
 import { sql } from '@vercel/postgres';
 import { redirect } from 'next/navigation'
+import { revalidateTag } from 'next/cache'
+
 
 
 export async function createCustomer(values: any) {
@@ -12,6 +14,7 @@ export async function createCustomer(values: any) {
    try {
     if (!firstName || !lastName || !phoneNumber || !emailAddress || !signUpDate || !physicalAddress || !accountNumber) throw new Error('Pet and owner names required');
     await sql`INSERT INTO customers (first_name, last_name, phone_number, email_address, signup_date, physical_address, account_number) VALUES (${firstName}, ${lastName}, ${phoneNumber}, ${emailAddress}, ${signUpDate}, ${physicalAddress}, ${accountNumber});`;
+    revalidateTag('customers')
   } catch (error) {
     console.error(error)
   }
@@ -27,6 +30,7 @@ export async function createPackage(values: any) {
    try {
     if (!shipmentDate || !deliveryDate || !warehouseId || !customer || !trackingNumber || !weight || !description || !vendor) throw new Error('Pet and owner names required');
     await sql`INSERT INTO packages (delivery_date, shipped_date, customer_id, warehouse_id, tracking_number, description, weight, vendor) VALUES (${deliveryDate}, ${shipmentDate}, ${customer}, ${warehouseId}, ${trackingNumber}, ${description}, ${weight}, ${vendor});`;
+    revalidateTag('packages')
   } catch (error) {
     console.error(error)
   }
