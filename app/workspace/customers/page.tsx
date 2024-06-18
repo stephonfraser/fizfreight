@@ -23,18 +23,32 @@ import {
 } from "@/components/ui/breadcrumb"
 import { Customer, columns } from "./columns"
 import { DataTable } from "./data-table"
+import { useUrl } from 'nextjs-current-url';
+import { NextPageContext } from "next";
+ import { headers } from "next/headers";
 
-async function getData(): Promise<Customer[]> {
-  const res = await fetch('/api/select-customers')
-  console.log("Got response: ", res);
+ const heads = headers()
+
+ const pathname = heads.get('next-url')
+
+
+async function getData(link: any): Promise<Customer[]> {
+  let starter = "";
+  if (link == "localhost:3000") {
+    starter = "http://"
+  } else {
+    starter = "https://"
+  }
+  const res = await fetch(`${starter}${link}/api/select-customers`)
+  // console.log("Got response: ", res);
   const data = await res.json();
-  console.log("Data is now: ", data);
+  // console.log("Data is now: ", data);
   const returnedData: any[] = []
   data.data.map((singleData: any) => {
     returnedData.push(singleData);
   }) 
 
-  console.log("Returned Data is now: ", returnedData)
+  // console.log("Returned Data is now: ", returnedData)
 
    
   if (!res.ok) {
@@ -61,8 +75,16 @@ async function getData(): Promise<Customer[]> {
 
 
 export default async function Home() {
-  const data = await getData()
-  console.log("Pulled Data: ", data);
+
+  const headersList = headers();
+  const domain = headersList.get('host') || "";
+  const fullUrl = headersList.get('referer') || "";
+  const link = headersList.get('x-url') || "";
+
+  console.log("Domain is: ", domain);
+
+  const data = await getData(domain)
+  // console.log("Pulled Data: ", data);
 
   return (
     <main className="flex w-full">
@@ -93,3 +115,7 @@ export default async function Home() {
     </main>
   );
 }
+function getUrl(arg0: { req: import("http").IncomingMessage | undefined; }) {
+  throw new Error("Function not implemented.");
+}
+

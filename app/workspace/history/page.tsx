@@ -11,11 +11,18 @@ import {
 } from "@/components/ui/breadcrumb"
 import { History, columns } from "./columns"
 import { DataTable } from "./data-table"
+import { headers } from "next/headers";
 
 import { HistoryTable } from "./components/HistoryTable";
 
-async function getData(): Promise<History[]> {
-  const res = await fetch('/api/select-shipment-history')
+async function getData( link: any ): Promise<History[]> {
+  let starter = "";
+  if (link == "localhost:3000") {
+    starter = "http://"
+  } else {
+    starter = "https://"
+  }
+  const res = await fetch(`${starter}${link}/api/select-shipment-history`)
   console.log("Got response: ", res);
   const data = await res.json();
   console.log("Data is now: ", data);
@@ -47,7 +54,9 @@ async function getData(): Promise<History[]> {
 
 
 export default async function Home() {
-  const data = await getData()
+  const headersList = headers();
+  const domain = headersList.get('host') || "";
+  const data = await getData(domain)
   console.log("Pulled Data: ", data);
 
   return (
