@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { redirect } from 'next/navigation'
+import { useToast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
   shipmentDate: z.string(),
@@ -34,6 +35,7 @@ const formSchema = z.object({
 
 export function PackageForm({createPackage}: any) {
   // 1. Define your form.
+  const { toast } = useToast()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -63,7 +65,9 @@ export function PackageForm({createPackage}: any) {
       vendor
     }
     await createPackage(submissionData);
-    
+    toast({
+      title: "Package Created!",
+    })
   }
 
   return (
@@ -105,7 +109,7 @@ export function PackageForm({createPackage}: any) {
               <FormItem className="w-1/2">
                 <FormLabel>Warehouse ID</FormLabel>
                 <FormControl>
-                  <Input type="number" placeholder="0"  {...field} />
+                  <Input type="text" placeholder="0"  {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
