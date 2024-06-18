@@ -25,7 +25,7 @@ import { Customer, columns } from "./columns"
 import { DataTable } from "./data-table"
 
 async function getData(): Promise<Customer[]> {
-  const res = await fetch('https://fizfreight.vercel.app/api/select-customers')
+  const res = await fetch('/api/select-customers')
   console.log("Got response: ", res);
   const data = await res.json();
   console.log("Data is now: ", data);
