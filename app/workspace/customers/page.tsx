@@ -23,8 +23,6 @@ import {
 } from "@/components/ui/breadcrumb"
 import { Customer, columns } from "./columns"
 import { DataTable } from "./data-table"
-import { useUrl } from 'nextjs-current-url';
-import { NextPageContext } from "next";
  import { headers } from "next/headers";
 
  const heads = headers()

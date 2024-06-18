@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/breadcrumb"
 import { History, columns } from "./columns"
 import { DataTable } from "./data-table"
-import { useUrl } from 'nextjs-current-url';
 import { headers } from "next/headers";
 
 
