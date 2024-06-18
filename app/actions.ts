@@ -3,7 +3,7 @@ import { sql } from '@vercel/postgres';
 import { redirect } from 'next/navigation'
 import { revalidateTag } from 'next/cache'
 
-
+export const runtime = 'edge';
 
 export async function createCustomer(values: any) {
    const { firstName, lastName, emailAddress, phoneNumber, physicalAddress} = values;
