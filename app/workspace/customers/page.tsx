@@ -21,11 +21,48 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { HistoryTable } from "./components/HistoryTable";
+import { Customer, columns } from "./columns"
+import { DataTable } from "./data-table"
+
+async function getData(): Promise<Customer[]> {
+  const res = await fetch('https://fizfreight.vercel.app/api/select-customers')
+  console.log("Got response: ", res);
+  const data = await res.json();
+  console.log("Data is now: ", data);
+  const returnedData: any[] = []
+  data.data.map((singleData: any) => {
+    returnedData.push(singleData);
+  }) 
+
+  console.log("Returned Data is now: ", returnedData)
+
+   
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+
+  const returned: Customer[] = returnedData.map((result: { signup_date: any; account_number: any; first_name: any; last_name: any; phone_number: any; email_address: any; physical_address: any; total_weight_shipped: any; package_count: any; id: any;}) => ({
+    signup_date: result.signup_date.toLocaleString(),
+    account_number: result.account_number,
+    first_name: result.first_name,
+    last_name: result.last_name,
+    phone_number: result.phone_number,
+    email_address: result.email_address,
+    physical_address: result.physical_address,
+    total_weight_shipped: result.total_weight_shipped,
+    package_count: result.package_count,
+    id: result.id,
+  }))
+ 
+  return returned
+}
 
 
 
 export default async function Home() {
+  const data = await getData()
+  console.log("Pulled Data: ", data);
 
   return (
     <main className="flex w-full">
@@ -50,7 +87,7 @@ export default async function Home() {
                 </div>
             </div>
             
-            <HistoryTable />
+            <DataTable columns={columns} data={data} />
         </div>
 
     </main>

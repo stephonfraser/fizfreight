@@ -21,6 +21,21 @@ export async function createCustomer(values: any) {
   redirect('/workspace')
 }
 
+export async function createPackage(values: any) {
+   const { shipmentDate, deliveryDate, warehouseId, customer, trackingNumber, weight, description, vendor} = values;
+   
+   try {
+    if (!shipmentDate || !deliveryDate || !warehouseId || !customer || !trackingNumber || !weight || !description || !vendor) throw new Error('Pet and owner names required');
+    await sql`INSERT INTO packages (delivery_date, shipped_date, customer_id, warehouse_id, tracking_number, description, weight, vendor) VALUES (${deliveryDate}, ${shipmentDate}, ${customer}, ${warehouseId}, ${trackingNumber}, ${description}, ${weight}, ${vendor});`;
+  } catch (error) {
+    console.error(error)
+  }
+ 
+  const packages = await sql`SELECT * FROM packages;`;
+  console.log(packages)
+  redirect('/workspace')
+}
+
 async function getLastId() {
   const { rows } = await sql`SELECT * FROM customers;`;
   if (rows.length < 1) {

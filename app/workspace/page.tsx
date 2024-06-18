@@ -6,7 +6,8 @@ import { sql } from "@vercel/postgres";
 import Link from "next/link";
 import { LuUserPlus, LuUserCog, LuPackagePlus, LuPackageSearch, LuPackageOpen } from "react-icons/lu";
 import { CustomerForm } from "./customerForm";
-import { createCustomer } from "../actions";
+import { PackageForm } from "./packageForm";
+import { createCustomer, createPackage } from "../actions";
 
 import {
   Card,
@@ -98,7 +99,7 @@ export default function Home() {
                   <DialogHeader>
                     <DialogTitle>Add New Package</DialogTitle>
                     <DialogDescription>
-                      Form will be placed here. Logic already written.
+                      <PackageForm createPackage={createPackage}></PackageForm>
                     </DialogDescription>
                   </DialogHeader>
                 </DialogContent>

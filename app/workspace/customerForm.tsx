@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { redirect } from 'next/navigation'
+import { useToast } from "@/components/ui/use-toast"
 
 const formSchema = z.object({
   firstName: z.string().min(2, {
@@ -37,6 +37,7 @@ const formSchema = z.object({
 
 export function CustomerForm({createCustomer}: any) {
   // 1. Define your form.
+   const { toast } = useToast()
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -50,6 +51,8 @@ export function CustomerForm({createCustomer}: any) {
  
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+   
+
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values)
@@ -61,65 +64,73 @@ export function CustomerForm({createCustomer}: any) {
       phoneNumber,
       physicalAddress
     }
+    const currentDate = new Date().toISOString;
     await createCustomer(submissionData);
-    
+    toast({
+      title: "Customer Created!",
+    })
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="firstName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>First Name</FormLabel>
-              <FormControl>
-                <Input placeholder="John" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="lastName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Last Name</FormLabel>
-              <FormControl>
-                <Input placeholder="Doe" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="emailAddress"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email Address</FormLabel>
-              <FormControl>
-                <Input placeholder="john@doe.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="phoneNumber"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phone Number</FormLabel>
-              <FormControl>
-                <Input placeholder="5921234567" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="row flex flex-row gap-3 w-full mt-5">
+          <FormField
+            control={form.control}
+            name="firstName"
+            render={({ field }) => (
+              <FormItem className="w-1/2">
+                <FormLabel>First Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="John" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem className="w-1/2">
+                <FormLabel>Last Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Doe" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="row flex flex-row gap-3 w-full">
+          <FormField
+            control={form.control}
+            name="emailAddress"
+            render={({ field }) => (
+              <FormItem className="w-1/2">
+                <FormLabel>Email Address</FormLabel>
+                <FormControl>
+                  <Input placeholder="john@doe.com" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="phoneNumber"
+            render={({ field }) => (
+              <FormItem className="w-1/2">
+                <FormLabel>Phone Number</FormLabel>
+                <FormControl>
+                  <Input placeholder="5921234567" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        
         <FormField
           control={form.control}
           name="physicalAddress"

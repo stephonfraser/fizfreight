@@ -4,63 +4,61 @@ import { ColumnDef } from "@tanstack/react-table"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Payment = {
-  id: string
-  amount: number
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
+
+export type Customer = {
+  first_name: any
+  last_name: any
+  phone_number: any
+  email_address: any
+  signup_date: any
+  physical_address: any
+  total_weight_shipped: any
+  package_count: any
+  account_number: any
+  id: any
 }
 
-export type History = {
-  id: string
-  customer_id: number
-  warehouse_id: number
-  tracking_number: number
-  description: string
-  weight: number
-  vendor: string
-  delivery_date: string
-  shipped_date: string
-}
-
-export const columns: ColumnDef<History>[] = [
+export const columns: ColumnDef<Customer>[] = [
+  {
+    accessorKey: "first_name",
+    header: "First Name",
+  },
+  {
+    accessorKey: "last_name",
+    header: "Last Name",
+  },
+  {
+    accessorKey: "phone_number",
+    header: "Phone Number",
+  },
+  {
+    accessorKey: "email_address",
+    header: "Email Address",
+  },
+  {
+    accessorKey: "signup_date",
+    header: "Sign Up Date",
+  },
+  {
+    accessorKey: "physical_address",
+    header: "Physical Address",
+  },
+  {
+    accessorKey: "total_weight_shipped",
+    header: "Total Weight Shipped",
+  },
+  {
+    accessorKey: "package_count",
+    header: "Package Count",
+  },
+  {
+    accessorKey: "account_number",
+    header: "Account Number",
+  },
   {
     accessorKey: "id",
     header: "ID",
-  },
-  {
-    accessorKey: "customer_id",
-    header: "Customer ID",
-  },
-  {
-    accessorKey: "warehouse_id",
-    header: "Warehouse ID",
-  },
-  {
-    accessorKey: "tracking_number",
-    header: "Tracking Number",
-  },
-  {
-    accessorKey: "description",
-    header: "Description",
-  },
-  {
-    accessorKey: "weight",
-    header: "Weight",
-  },
-  {
-    accessorKey: "vendor",
-    header: "Vendor",
-  },
-  {
-    accessorKey: "delivery_date",
-    header: "Delivery Date",
-  },
-  {
-    accessorKey: "shipping_date",
-    header: "Shipping Date",
   }
-  
 
 ]
 
