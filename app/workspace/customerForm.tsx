@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/components/ui/use-toast"
+import { revalidatePath } from "next/cache"
 
 const formSchema = z.object({
   firstName: z.string().min(2, {
@@ -69,6 +70,7 @@ export function CustomerForm({createCustomer}: any) {
     toast({
       title: "Customer Created!",
     })
+    revalidatePath("/workspace/customers")
   }
 
   return (

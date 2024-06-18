@@ -34,7 +34,7 @@ async function getData(link: any): Promise<Customer[]> {
   } else {
     starter = "https://"
   }
-  const res = await fetch(`${starter}${link}/api/select-customers`, { next: { tags: ['customers'] }})
+  const res = await fetch(`${starter}${link}/api/select-customers`, { cache: 'no-store'})
   // console.log("Got response: ", res);
   const data = await res.json();
   // console.log("Data is now: ", data);
