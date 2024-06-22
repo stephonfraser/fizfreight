@@ -15,20 +15,12 @@ import {
 
 
 async function getData( link: any ): Promise<History[]> {
-  let starter = "";
-  if (link == "localhost:3000") {
-    starter = "http://"
-  } else {
-    starter = "https://"
-  }
-  const res = await fetch(`${starter}${link}/api/select-shipment-history`, { next: { tags: ['packages']  }, cache: 'no-store'})
   // console.log("Got response: ", res);
+  const res = await getShippingHistory();
   const data = await res.json();
-  const newRes = await getShippingHistory();
-  const newData = await newRes.json();
   // console.log("Data is now: ", data);
   const returnedData: any[] = []
-  newData.data.map((singleData: any) => {
+  data.data.map((singleData: any) => {
     returnedData.push(singleData);
   }) 
 
