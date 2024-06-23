@@ -1,19 +1,11 @@
-import Image from "next/image";
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { redirect } from "next/navigation";
-import { sql } from "@vercel/postgres";
 import Link from "next/link";
 import { LuUserPlus, LuUserCog, LuPackagePlus, LuPackageSearch, LuPackageOpen } from "react-icons/lu";
 import { CustomerForm } from "./customerForm";
 import { PackageForm } from "./packageForm";
 import { createCustomer, createPackage, getCustomers } from "../actions";
-
 import {
   Card,
-  CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -73,9 +65,6 @@ export default async function Home() {
                     <CardTitle>Dorwin Kingston</CardTitle>
                     <CardDescription>Admin/Owner</CardDescription>
                 </CardHeader>
-                {/* <CardContent>
-                    <p>Add Details Here</p>
-                </CardContent> */}
             </Card>
         </div>
         <div className="rightSide p-5 w-3/3">

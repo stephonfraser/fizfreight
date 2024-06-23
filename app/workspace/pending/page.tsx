@@ -16,7 +16,7 @@ import {
 
 
 
-async function getData( link: any ): Promise<History[]> {
+async function getData( ): Promise<History[]> {
   const res = await getShippingHistory();
   const data = await res.json();
   const returnedData: any[] = []
@@ -30,6 +30,17 @@ async function getData( link: any ): Promise<History[]> {
   cusData.data.map((singleData: any) => {
     returnedCustomer.push(singleData);
   })
+
+  const currentDate = new Date();
+  console.log("Current Date: ", currentDate);
+
+  const pendingShipments: any = returnedData.filter((item) => {
+    let itemDate = new Date(item.delivery_date);
+    console.log(itemDate);
+    return itemDate > currentDate;
+  });
+
+  console.log("Pending List: ", pendingShipments);
 
 
    
@@ -59,9 +70,7 @@ async function getData( link: any ): Promise<History[]> {
 
 
 export default async function Home() {
-  const headersList = headers();
-  const domain = headersList.get('host') || "";
-  const data = await getData(domain)
+  const data = await getData()
   return (
     <main className="flex w-full">
         <div className="p-5 w-full">

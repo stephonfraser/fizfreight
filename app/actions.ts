@@ -44,6 +44,29 @@ export async function getShippingHistory() {
   }
 }
 
+export async function getPendingShipments() {
+  try {
+    const result =
+      await sql`SELECT * FROM packages;`;
+    const data = result.rows;
+    return NextResponse.json({ data }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+  }
+}
+
+export async function getShippingByDate() {
+  try {
+    const result =
+      await sql`SELECT ROW_NUMBER() OVER (ORDER BY delivery_date) AS id, delivery_date, COUNT(*) as no_of_shipment FROM packages GROUP BY delivery_date;`;
+    const data = result.rows;
+    return NextResponse.json({ data }, { status: 200 });
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+  }
+}
+
+
 export async function createPackage(values: any) {
    const { shipmentDate, deliveryDate, warehouseId, customer, trackingNumber, weight, description, vendor} = values;
    
