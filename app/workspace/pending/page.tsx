@@ -16,7 +16,7 @@ import {
 
 
 
-async function getData( ): Promise<History[]> {
+async function getData( link: any ): Promise<History[]> {
   const res = await getShippingHistory();
   const data = await res.json();
   const returnedData: any[] = []
@@ -70,7 +70,8 @@ async function getData( ): Promise<History[]> {
 
 
 export default async function Home() {
-  const data = await getData()
+  const link = null;
+  const data = await getData(link)
   return (
     <main className="flex w-full">
         <div className="p-5 w-full">
