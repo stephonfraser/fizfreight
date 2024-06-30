@@ -18,7 +18,7 @@ export async function createCustomer(values: any) {
   } catch (error) {
     console.error(error)
   }
- 
+  revalidatePath('/workspace')
   const customers = await sql`SELECT * FROM customers;`;
 }
 
@@ -76,6 +76,7 @@ export async function createPackage(values: any) {
     revalidateTag('packages')
     revalidatePath('/workspace/history')
     revalidatePath('/workspace/pending')
+    revalidatePath('/workspace')
   } catch (error) {
     console.error(error)
   }
