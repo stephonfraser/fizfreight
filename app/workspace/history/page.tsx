@@ -43,6 +43,7 @@ async function getData() {
     return (
       {
         id: result.id,
+        delivery_sort: delivery,
         delivery_date_text: formattedDelivery,
         delivery_date: result.delivery_date,
         no_of_shipment: result.no_of_shipment,
@@ -56,8 +57,11 @@ async function getData() {
 
 
 export default async function Home() {
-  const data = await getData()
-  console.log("Pulled Data: ", data);
+  const data = await getData();
+  const sortedData = data.sort(function(a:any, b:any) {
+    return b.delivery_sort - a.delivery_sort
+  })
+  console.log("Pulled Data: ", sortedData);
 
   return (
     <main className="flex w-full">
@@ -83,7 +87,7 @@ export default async function Home() {
                 </div>
             </div>
             <div className="grid grid-flow-row grid-cols-4 gap-4">
-              {data.map((result: any)=> (
+              {sortedData.map((result: any)=> (
                 <Card key={result.id}>
                   <CardHeader>
                     <CardTitle>{result.delivery_date_text}</CardTitle>
