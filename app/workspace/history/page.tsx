@@ -22,6 +22,10 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { BellIcon, CheckIcon } from "@radix-ui/react-icons";
+import { CalendarIcon } from "@radix-ui/react-icons"
+import { Input } from "@/components/ui/input"
+import DatepickerButton from "./components/DatepickerButton";
+
 
 async function getData() {
   const res = await getShippingByDate();
@@ -38,7 +42,7 @@ async function getData() {
 
   const returned: any = returnedData.map((result: { delivery_date: any; no_of_shipment: any; id: any;}) => {
     const delivery = new Date(result.delivery_date);
-    const forParsing = Date.parse(result.delivery_date)
+    const forParsing = Date.parse(result.delivery_date);
     const formattedDelivery = delivery.toLocaleDateString();
     return (
       {
@@ -63,6 +67,8 @@ export default async function Home() {
   })
   console.log("Pulled Data: ", sortedData);
 
+  
+
   return (
     <main className="flex w-full">
         <div className="p-5 w-full">
@@ -86,7 +92,8 @@ export default async function Home() {
                     Shipping History
                 </div>
             </div>
-            <div className="grid grid-flow-row grid-cols-4 gap-4">
+            <Input />
+            <div className="grid grid-flow-row grid-cols-4 gap-4 mt-5">
               {sortedData.map((result: any)=> (
                 <Card key={result.id}>
                   <CardHeader>

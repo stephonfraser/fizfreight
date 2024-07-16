@@ -17,6 +17,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { sendEmail } from "../actions";
+import MailSender from "./components/MailSender";
 
 
 async function getData() {
@@ -54,6 +56,8 @@ async function getData() {
 export default async function Home() {
 
   const userType = "admin";
+
+  
 
   const customerData = await getData();
 
@@ -153,6 +157,9 @@ export default async function Home() {
                     </CardHeader>
                 </Card>
               </Link>
+            </div>
+            <div className="test-buttons mt-5">
+              <MailSender />
             </div>
             
         </div>

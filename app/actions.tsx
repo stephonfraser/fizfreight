@@ -3,6 +3,10 @@ import { sql } from '@vercel/postgres';
 import { redirect } from 'next/navigation'
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { NextResponse } from 'next/server';
+import { mailOptions, transporter } from './utils/mail.utils';
+import { render } from '@react-email/components';
+import nodemailer from 'nodemailer';
+import { Email } from './email';
 
 
 export async function createCustomer(values: any) {
@@ -98,4 +102,29 @@ async function getLastId() {
 
   return sortedIds[lastItemIndex];
 
+}
+
+
+
+
+export async function sendEmail(values: any) {
+  console.log("Actions Ran")
+
+  const emailHtml = render(<Email url="https://example.com" title={values.subject} />);
+
+  if(!values?.name || !values?.email || !values?.subject || !values?.message) {
+    return NextResponse.json({ message: "Bad Request" }, { status: 500 });
+  }
+  
+  try {
+    await transporter.sendMail({
+        ...mailOptions,
+        to: values.email,
+        subject: values.subject,
+        text: "This is a test string",
+        html: emailHtml
+    })
+  } catch (error) {
+    return NextResponse.json({ error }, { status: 500 });
+  }
 }
