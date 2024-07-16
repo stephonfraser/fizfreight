@@ -79,7 +79,7 @@ const WarehouseReceipt = () => {
           </tbody>
           
         </table>
-        <table className='w-full text-center table-auto border-collapse border border-slate-500'>
+        <table className='w-full text-center table-fixed border-collapse border border-slate-500'>
           <thead>
             <tr>
               <th className='border border-slate-600' colSpan={4}>Inland Carrier and Supplier Information</th>
@@ -91,13 +91,13 @@ const WarehouseReceipt = () => {
                 Carrier Name
               </td>
               <td className='border border-slate-600 p-2 text-sm'>
-                Name...
+                
               </td>
               <td className='border border-slate-600 p-2 text-sm'>
                 Driver License
               </td>
               <td className='border border-slate-600 p-2 text-sm'>
-                License...
+                
               </td>
             </tr>
             <tr>
@@ -105,13 +105,13 @@ const WarehouseReceipt = () => {
                 PRO Number
               </td>
               <td className='border border-slate-600 p-2 text-sm'>
-                Number...
+                
               </td>
               <td className='border border-slate-600 p-2 text-sm'>
                 Supplier Name
               </td>
               <td className='border border-slate-600 p-2 text-sm'>
-                Name...
+                
               </td>
             </tr>
             <tr>
@@ -125,7 +125,7 @@ const WarehouseReceipt = () => {
                 Invoice Number
               </td>
               <td className='border border-slate-600 p-2 text-sm'>
-                Number...
+                
               </td>
             </tr>
             <tr>
@@ -133,18 +133,18 @@ const WarehouseReceipt = () => {
                 Driver Name
               </td>
               <td className='border border-slate-600 p-2 text-sm'>
-                Name...
+                
               </td>
               <td className='border border-slate-600 p-2 text-sm'>
                 P.O. Number
               </td>
               <td className='border border-slate-600 p-2 text-sm'>
-                Number...
+                
               </td>
             </tr>
           </tbody>
         </table>
-        <table className='w-full text-center table-auto border-collapse border border-slate-500'>
+        <table className='w-full text-center table-fixed border-collapse border border-slate-500'>
           <thead>
             <tr>
               <th className='border border-slate-600'>Notes</th>
@@ -152,7 +152,7 @@ const WarehouseReceipt = () => {
           </thead>
           <tbody>
             <tr>
-              <td className='border border-slate-600 p-10 text-sm'>Notes here</td>
+              <td className='border border-slate-600 p-12 text-sm'></td>
             </tr>
           </tbody>
         </table>
