@@ -164,13 +164,11 @@ const WarehouseReceipt = () => {
               <th className='border border-slate-600'>Dimensions</th>
               <th className='border border-slate-600' colSpan={3}>Description</th>
               <th className='border border-slate-600' rowSpan={3}>Weight</th>
-              <th className='border border-slate-600'>Volume</th>
             </tr>
             <tr>
               <th className='border border-slate-600' colSpan={2}>Location</th>
               <th className='border border-slate-600'>Invoice Number</th>
               <th className='border border-slate-600' colSpan={3}>Notes</th>
-              <th className='border border-slate-600' rowSpan={2}>Volume Weight</th>
             </tr>
             <tr>
               <th className='border border-slate-600' colSpan={2}>Quantity</th>
@@ -188,7 +186,6 @@ const WarehouseReceipt = () => {
                 APPAREL; FASHION ACCESSORIES
               </td>
               <td className='border border-slate-600 p-5 text-sm'>15.00LB, 6.80 Kg</td>
-              <td className='border border-slate-600 p-5 text-sm'>0.00 CM3, 0.16 VLb</td>
             </tr>
             <tr>
               <td colSpan={5} className='p-10'>
@@ -202,14 +199,12 @@ const WarehouseReceipt = () => {
                     <tr className='border border-slate-600 '>
                       <th className='p-2 border border-slate-600'>Pieces</th>
                       <th className='p-2 border border-slate-600'>Weight</th>
-                      <th className='p-2 border border-slate-600'>Volume</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr className='border border-slate-600 p-5'>
                       <td className='p-2 border border-slate-600'>1</td>
                       <td className='p-2 border border-slate-600'>15.00 Lbs, 6.80 Kg</td>
-                      <td className='p-2 border border-slate-600'>0.00 CM3, 0.16 VLb</td>
                     </tr>
                   </tbody>
                 </table>
