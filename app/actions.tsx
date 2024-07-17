@@ -5,7 +5,6 @@ import { revalidatePath, revalidateTag } from 'next/cache'
 import { NextResponse } from 'next/server';
 import { mailOptions, transporter } from './utils/mail.utils';
 import { render } from '@react-email/components';
-import nodemailer from 'nodemailer';
 import { Email } from './email';
 
 
