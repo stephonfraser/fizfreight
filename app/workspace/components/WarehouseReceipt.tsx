@@ -1,7 +1,6 @@
 import React from 'react'
 import Image from 'next/image'
 import "../../globals.css";
-import { number } from 'zod';
 
 const WarehouseReceipt = ({receiptData}:any) => {
 
@@ -13,7 +12,7 @@ const WarehouseReceipt = ({receiptData}:any) => {
     customerPhone: "+592-621-2733",
     trackingNumber: "1zhe69434215035596",
     weight: "15.00LB, 6.80 Kg",
-    description: "APPAREL; FASHION ACCESSORIES	"
+    description: "APPAREL; FASHION ACCESSORIES"
   }
   if(!receiptData) {
     receiptData = receiptDemo;
@@ -73,8 +72,6 @@ const WarehouseReceipt = ({receiptData}:any) => {
           <tbody>
             <tr className='w-full text-center'>
               <td className='border border-slate-600 p-10 text-sm'>
-                Pobox Shipper
-                <br />
                 10831 NW 122ND STREET,
                 <br />
                 MIAMI, FLORIDA, UNITED STATES
@@ -176,18 +173,15 @@ const WarehouseReceipt = ({receiptData}:any) => {
             <tr>
               <th className='border border-slate-600'>Pcs</th>
               <th className='border border-slate-600'>Package</th>
-              <th className='border border-slate-600'>Dimensions</th>
               <th className='border border-slate-600' colSpan={3}>Description</th>
               <th className='border border-slate-600' rowSpan={3}>Weight</th>
             </tr>
             <tr>
               <th className='border border-slate-600' colSpan={2}>Location</th>
-              <th className='border border-slate-600'>Invoice Number</th>
               <th className='border border-slate-600' colSpan={3}>Notes</th>
             </tr>
             <tr>
               <th className='border border-slate-600' colSpan={2}>Quantity</th>
-              <th className='border border-slate-600'>P O Number</th>
               <th className='border border-slate-600'>Part Number</th>
               <th className='border border-slate-600'>Model</th>
               <th className='border border-slate-600'>Serial Number</th>
@@ -196,7 +190,6 @@ const WarehouseReceipt = ({receiptData}:any) => {
           <tbody>
             <tr>
               <td className='border border-slate-600 p-5 text-sm' colSpan={2}>1 box US-LOC</td>
-              <td className='border border-slate-600 p-5 text-sm'>3.00X3.00X3.00 cm</td>
               <td className='border border-slate-600 p-5 text-sm' colSpan={3}>
                 {receiptData.description}
               </td>
