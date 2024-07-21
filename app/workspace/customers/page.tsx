@@ -95,7 +95,5 @@ export default async function Home() {
     </main>
   );
 }
-function getUrl(arg0: { req: import("http").IncomingMessage | undefined; }) {
-  throw new Error("Function not implemented.");
-}
+
 

@@ -1,8 +1,23 @@
 import React from 'react'
 import Image from 'next/image'
 import "../../globals.css";
+import { number } from 'zod';
 
-const WarehouseReceipt = () => {
+const WarehouseReceipt = ({receiptData}:any) => {
+
+  let receiptDemo = {
+    number: "WR-9112",
+    date: "June 15th, 2024 12:48 PM",
+    customerName: "Dorwin Kingston",
+    customerAddress: "Georgetown, Demerara-Mahaica, Guyana",
+    customerPhone: "+592-621-2733",
+    trackingNumber: "1zhe69434215035596",
+    weight: "15.00LB, 6.80 Kg",
+    description: "APPAREL; FASHION ACCESSORIES	"
+  }
+  if(!receiptData) {
+    receiptData = receiptDemo;
+  }
   return (
     <div className='warehouse-receipt w-full p-28'>
       <div className="header w-full flex flex-row items-center justify-between">
@@ -15,13 +30,13 @@ const WarehouseReceipt = () => {
               <thead>
                 <tr>
                   <td className='p-2'>Receipt Number:</td>
-                  <td className='p-2'>WR-9112</td>
+                  <td className='p-2'>{receiptData.number}</td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td className='p-2'>Received Date/Time:</td>
-                  <td className='p-2'>June 15th, 2024 12:48 PM</td>
+                  <td className='p-2'>{receiptData.date}</td>
                 </tr>
                 <tr>
                   <td className='p-2'>Received By:</td>
@@ -67,13 +82,13 @@ const WarehouseReceipt = () => {
                 Zip: 300086
               </td>
               <td className='border border-slate-600 p-10 text-sm'>
-                Dorwin Kingston
+                {receiptData.customerName}
                 <br />
                 Diamond,
                 <br />
-                GEORGETOWN, DEMERARA-MAHAICA, GUYANA
+                {receiptData.customerAddress}
                 <br />
-                Phone: +592-621-2733
+                {receiptData.customerPhone}
               </td>
             </tr>
           </tbody>
@@ -119,7 +134,7 @@ const WarehouseReceipt = () => {
                 Tracking Number
               </td>
               <td className='border border-slate-600 p-2 text-sm'>
-                1zhe69434215035596
+                {receiptData.trackingNumber}
               </td>
               <td className='border border-slate-600 p-2 text-sm'>
                 Invoice Number
@@ -183,9 +198,9 @@ const WarehouseReceipt = () => {
               <td className='border border-slate-600 p-5 text-sm' colSpan={2}>1 box US-LOC</td>
               <td className='border border-slate-600 p-5 text-sm'>3.00X3.00X3.00 cm</td>
               <td className='border border-slate-600 p-5 text-sm' colSpan={3}>
-                APPAREL; FASHION ACCESSORIES
+                {receiptData.description}
               </td>
-              <td className='border border-slate-600 p-5 text-sm'>15.00LB, 6.80 Kg</td>
+              <td className='border border-slate-600 p-5 text-sm'>{receiptData.weight}</td>
             </tr>
             <tr>
               <td colSpan={5} className='p-10'>
@@ -204,7 +219,7 @@ const WarehouseReceipt = () => {
                   <tbody>
                     <tr className='border border-slate-600 p-5'>
                       <td className='p-2 border border-slate-600'>1</td>
-                      <td className='p-2 border border-slate-600'>15.00 Lbs, 6.80 Kg</td>
+                      <td className='p-2 border border-slate-600'>{receiptData.weight}</td>
                     </tr>
                   </tbody>
                 </table>
