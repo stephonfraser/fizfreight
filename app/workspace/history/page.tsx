@@ -25,6 +25,7 @@ import { BellIcon, CheckIcon } from "@radix-ui/react-icons";
 import { CalendarIcon } from "@radix-ui/react-icons"
 import { Input } from "@/components/ui/input"
 import DatepickerButton from "./components/DatepickerButton";
+import ShipmentList from "./components/ShipmentList";
 
 
 async function getData() {
@@ -92,24 +93,8 @@ export default async function Home() {
                     Shipping History
                 </div>
             </div>
-            <Input />
-            <div className="grid grid-flow-row grid-cols-4 gap-4 mt-5">
-              {sortedData.map((result: any)=> (
-                <Card key={result.id}>
-                  <CardHeader>
-                    <CardTitle>{result.delivery_date_text}</CardTitle>
-                    <CardDescription>{result.no_of_shipment} shipment(s).</CardDescription>
-                  </CardHeader>
-                  <CardFooter>
-                    <Link href={`/workspace/history/${result.deliveryId}`}>
-                      <Button className="w-full">
-                        <CheckIcon className="mr-2 h-4 w-4" /> View Shipments
-                      </Button>
-                    </Link>
-                  </CardFooter>
-                </Card>
-              ))}
-            </div>
+            
+            <ShipmentList shippingData={sortedData} />
             
         </div>
 
