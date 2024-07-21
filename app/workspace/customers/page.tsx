@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/breadcrumb"
 
 
-export const runtime = 'edge';
+// export const runtime = 'edge';
 
 async function getData(link: any): Promise<Customer[]> {
   const res = await getCustomers();
