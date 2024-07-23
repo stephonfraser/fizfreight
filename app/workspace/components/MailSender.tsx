@@ -8,7 +8,7 @@ const MailSender = () => {
     const triggerEmail = async () => {
         let values = {
             name: "Salem",
-            email: "dorwinkingston@fizuro.com",
+            email: "stephonfraserofficial@gmail.com",
             subject: "New Test Mail",
             message: "This is a test mail"
         }

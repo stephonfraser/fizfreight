@@ -116,6 +116,13 @@ export async function sendEmail(values: any) {
   }
   
   try {
+    transporter.verify(function (error, success) {
+      if (error) {
+        return console.log(error);
+      } else {
+        console.log("Server is ready to take our messages");
+      }
+    });
     await transporter.sendMail({
         ...mailOptions,
         to: values.email,
@@ -123,6 +130,8 @@ export async function sendEmail(values: any) {
         text: "This is a test string",
         html: emailHtml
     })
+    let message = "Success"
+    return NextResponse.json({ message }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ error }, { status: 500 });
   }

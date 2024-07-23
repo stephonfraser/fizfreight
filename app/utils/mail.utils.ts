@@ -1,14 +1,19 @@
 import nodemailer from "nodemailer";
-let user = "stephonfraserofficial@gmail.com";
-let pwd = "szzczsfokmmbrhej";
+let user = "support@fizuro.com";
+let pwd = "CareSupport000";
 
 export const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    pool: true,
+    host: "mail.privatemail.com",
+    port: 465,
+    secure: false, // use TLS
     auth: {
         user: user,
-        pass: pwd
-    }
+        pass: pwd,
+    },
 })
+
+
 
 
 export const mailOptions = {
