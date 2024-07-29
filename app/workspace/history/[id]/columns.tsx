@@ -1,6 +1,26 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
+import { Button } from "@/components/ui/button"
+import { MoreHorizontal } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import WarehouseReceipt from "../../components/WarehouseReceipt"
+
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -54,7 +74,44 @@ export const columns: ColumnDef<History>[] = [
   {
     accessorKey: "vendor",
     header: "Vendor",
-  }
+  },
+  {
+    id: "actions",
+    cell: ({ row }) => {
+      const warehouse = row.original
+ 
+      return (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" className="h-8 w-8 p-0">
+              <span className="sr-only">Open menu</span>
+              <MoreHorizontal className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+            <DropdownMenuItem
+              onClick={() => navigator.clipboard.writeText(warehouse.warehouse_id)}
+            >
+              Copy Warehouse ID
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+            </DropdownMenuItem>
+              <Dialog>
+                <DialogTrigger>
+                  View Warehouse Receipt
+                </DialogTrigger>
+                <DialogContent className="max-w-5xl w-11/12 overflow-y-scroll max-h-screen">
+                    <WarehouseReceipt />
+                </DialogContent>
+              </Dialog>
+            <DropdownMenuSeparator />
+            
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )
+    },
+  },
 
 ]
 

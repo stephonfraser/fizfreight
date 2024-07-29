@@ -76,6 +76,7 @@ export async function createPackage(values: any) {
    try {
     if (!shipmentDate || !deliveryDate || !warehouseId || !customer || !trackingNumber || !weight || !description || !vendor) throw new Error('Pet and owner names required');
     await sql`INSERT INTO packages (delivery_date, shipped_date, customer_id, warehouse_id, tracking_number, description, weight, vendor) VALUES (${deliveryDate}, ${shipmentDate}, ${customer}, ${warehouseId}, ${trackingNumber}, ${description}, ${weight}, ${vendor});`;
+    await createReceiptRecords(values);
     revalidateTag('packages')
     revalidatePath('/workspace/history')
     revalidatePath('/workspace/pending')
@@ -103,6 +104,32 @@ async function getLastId() {
 
 }
 
+
+async function createReceiptRecords(values: any) {
+  let {customer, warehouseId, deliveryDate, trackingNumber, weight, description, vendor} = values;
+  const { rows } = await sql`SELECT * FROM customers;`;
+  let consigneeInfo = rows.find((row) => row.id == customer);
+  if (!consigneeInfo) return console.error("No customer found");
+
+
+  let consigneeName = consigneeInfo.first_name + " " + consigneeInfo.last_name;
+  let consigneeAddress = consigneeInfo.physical_address;
+  let consigneePhone = consigneeInfo.phone_number;
+
+
+  try {
+    if (!consigneeName || !deliveryDate || !warehouseId || !customer || !trackingNumber || !weight || !description || !consigneeAddress || !consigneePhone || !vendor) throw new Error('Warehouse information required');
+    await sql`INSERT INTO warehousereceipts (receipt_number, received_datetime, consignee_name, consignee_address, consignee_number, supplier_name, tracking_number,  weight, description) VALUES (${warehouseId}, ${deliveryDate}, ${consigneeName}, ${consigneeAddress}, ${consigneePhone},  ${vendor}, ${trackingNumber}, ${weight}, ${description});`;
+    revalidateTag('packages')
+    revalidatePath('/workspace/history')
+    revalidatePath('/workspace/pending')
+    revalidatePath('/workspace')
+    console.log("Receipt recorded!")
+  } catch (error) {
+    console.error(error)
+  }
+
+}
 
 
 

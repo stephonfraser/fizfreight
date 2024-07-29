@@ -18,7 +18,7 @@ const WarehouseReceipt = ({receiptData}:any) => {
     receiptData = receiptDemo;
   }
   return (
-    <div className='warehouse-receipt w-full p-28'>
+    <div className='warehouse-receipt w-full p-10'>
       <div className="header w-full flex flex-row items-center justify-between">
         <div className="logo-container">
           <Image src="/fizfreight.png" alt="logo" width={200} height={200} style={{objectFit: "contain"}}	/>
